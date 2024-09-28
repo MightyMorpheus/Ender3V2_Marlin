@@ -210,8 +210,8 @@ void NextionTFT::panelInfo(uint8_t req) {
 
   case 1: // Get SD Card list
     if (!isPrinting()) {
-      if (!isMediaInserted()) safe_delay(500);
-      if (!isMediaInserted()) { // Make sure the card is removed
+      if (!isMediaMounted()) safe_delay(500);
+      if (!isMediaMounted()) { // Make sure the card is removed
         //SEND_TXT("tmppage.M117", msg_no_sd_card);
       }
       else if (nextion_command[3] == 'S')
@@ -323,7 +323,7 @@ void NextionTFT::panelInfo(uint8_t req) {
     SEND_PRINT_INFO("t8", getFilamentUsed_str);
     break;
 
-  case 28: // Filament laod/unload
+  case 28: // Filament load/unload
     #if ENABLED(ADVANCED_PAUSE_FEATURE)
       #define SEND_PAUSE_INFO(A, B) SEND_VALasTXT(A, fc_settings[getActiveTool()].B)
     #else
